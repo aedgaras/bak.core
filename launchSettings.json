@@ -9,7 +9,8 @@
       "serviceActions": {
         "bak.api": "StartDebugging",
         "db": "StartWithoutDebugging"
-      }
+      },
+      "sslPort": 5050
     }
   }
 }

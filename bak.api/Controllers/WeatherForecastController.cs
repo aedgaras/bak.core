@@ -1,12 +1,13 @@
 using bak.api.Context;
 using bak.api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace bak.api.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
 
@@ -19,7 +20,7 @@ namespace bak.api.Controllers
             this.context = context;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet, Authorize]
         public async Task<IActionResult> Get()
         {
             var list = await context.WeatherForecasts.ToListAsync();

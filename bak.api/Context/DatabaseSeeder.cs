@@ -25,18 +25,21 @@ namespace bak.api.Context
             {
                 Username = "admin",
                 Password = "admin",
+                Role = Role.Admin,
             };
 
             var user = new User
             {
                 Username = "user",
                 Password = "user",
+                Role = Role.User
             };
 
             var manager = new User
             {
                 Username = "manager",
                 Password = "manager",
+                Role = Role.User
             };
 
             usersToAdd.Add(admin);

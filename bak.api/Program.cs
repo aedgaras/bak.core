@@ -23,8 +23,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .EnableSensitiveDataLogging()
     .EnableDetailedErrors());
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication(
+    auth => {auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; })
+    .AddJwtBearer(options =>
 {
+    options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -50,19 +53,19 @@ builder.Services.AddSwaggerGen(option =>
             Scheme = "Bearer"
         });
         option.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
         {
-            new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
+                new OpenApiSecurityScheme
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
+                    Reference = new OpenApiReference
+                    {
+                        Type=ReferenceType.SecurityScheme,
+                        Id="Bearer"
+                    }
+                },
+                new string[]{}
+            }
+        });
     });
 
     var app = builder.Build();

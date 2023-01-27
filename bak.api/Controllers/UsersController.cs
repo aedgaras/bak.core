@@ -23,7 +23,7 @@ namespace bak.api.Controllers
             return Ok(await context.Users.ToListAsync());
         }
 
-        [HttpGet("{userId}"), Authorize]
+        [HttpGet("{userId}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUser(int userId)
         {
             var user = await context.Users.FirstOrDefaultAsync(user=> user.Id == userId);

@@ -26,7 +26,7 @@ namespace bak.api.Controllers
         }
 
         [HttpPost("login"), AllowAnonymous]
-        public IActionResult Login([FromBody] User login)
+        public IActionResult Login([FromBody] UserDto login)
         {
             if (!ModelState.IsValid)
             {
@@ -46,21 +46,21 @@ namespace bak.api.Controllers
         }
 
         [HttpPost("register"), AllowAnonymous]
-        public async Task<IActionResult> RegisterAsync([FromBody] User register) 
+        public async Task<IActionResult> RegisterAsync([FromBody] UserDto register) 
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var userExists = context.Users.FirstOrDefault(x => x.Username== register.Username);
+            var userExists = context.Users.FirstOrDefault(x => x.Username == register.Username);
 
             if (userExists != null) 
             {
                 return BadRequest("Such user already exists.");
             }
 
-            await context.Users.AddAsync(register);
+            await context.Users.AddAsync(new User { Username = register.Username, Password = register.Password });
             await context.SaveChangesAsync();
 
             var tokenString = GenerateJSONWebToken(register);
@@ -68,13 +68,16 @@ namespace bak.api.Controllers
             return Ok(new { token = tokenString });
         }
 
-        private string GenerateJSONWebToken(User userInfo)
+        private string GenerateJSONWebToken(UserDto userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            var user = context.Users.FirstOrDefault(x => x.Username == userInfo.Username);
+
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+                new Claim("role", user.Role.ToString()),
             };
 
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
@@ -86,7 +89,7 @@ namespace bak.api.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private User AuthenticateUser(User login)
+        private UserDto AuthenticateUser(UserDto login)
         {
             var user = context.Users.FirstOrDefault(x => x.Username == login.Username);
 
@@ -95,7 +98,13 @@ namespace bak.api.Controllers
                 return null;
             }
 
-            return user;
+            return new UserDto { Username = user.Username, Password = user.Password };
+        }
+
+        public class UserDto
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
         }
     }
 }

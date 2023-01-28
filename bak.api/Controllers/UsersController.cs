@@ -1,104 +1,82 @@
-﻿
-using bak.api.Context;
+﻿using bak.api.Context;
 using bak.api.Dtos;
 using bak.api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace bak.api.Controllers
+namespace bak.api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class UsersController : Controller
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class UsersController : Controller
+    private readonly ApplicationDbContext context;
+    private ILogger<UsersController> logger;
+
+    public UsersController(ILogger<UsersController> logger, ApplicationDbContext context)
     {
-        private ILogger<UsersController> logger;
-        private readonly ApplicationDbContext context;
+        this.logger = logger;
+        this.context = context;
+    }
 
-        public UsersController(ILogger<UsersController> logger,ApplicationDbContext context)
-        {
-            this.logger = logger;
-            this.context = context;
-        }
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetUsers()
+    {
+        return Ok(await context.Users.ToListAsync());
+    }
 
-        [HttpGet, Authorize]
-        public async Task<IActionResult> GetUsers()
-        {
-            return Ok(await context.Users.ToListAsync());
-        }
+    [HttpGet("{userId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetUser(int userId)
+    {
+        if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
+        var user = await context.Users.FirstOrDefaultAsync(user => user.Id == userId);
+        if (user == null) return BadRequest("Such user doesnt exist.");
 
-        [HttpGet("{userId}"), Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetUser(int userId)
-        {
-            if (userId <= 0)
-            {
-                return BadRequest("UserId cannot be lower than 1.");
-            }
-            var user = await context.Users.FirstOrDefaultAsync(user=> user.Id == userId);
-            if (user == null)
-            {
-                return BadRequest("Such user doesnt exist.");
-            }
+        return Ok(user);
+    }
 
-            return Ok(user);
-        }
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AddUser([FromBody] UserDto user)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        [HttpPost, Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddUser([FromBody] UserDto user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        var userExists = await context.Users.FirstOrDefaultAsync(x => x.Username == user.Username);
 
-            var userExists = await context.Users.FirstOrDefaultAsync(x => x.Username == user.Username);
+        if (userExists != null) return BadRequest("Such user exists.");
 
-            if (userExists != null)
-            {
-                return BadRequest("Such user exists.");
-            }
+        await context.Users.AddAsync(new User { Username = user.Username, Password = user.Password, Role = user.Role });
+        await context.SaveChangesAsync();
+        return Ok();
+    }
 
-            await context.Users.AddAsync(new User {Username = user.Username, Password = user.Password, Role = user.Role });
-            await context.SaveChangesAsync();
-            return Ok();
-        }
-        
-        [HttpDelete("{userId}"), Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(int userId)
-        {
-            if (userId <= 0)
-            {
-                return BadRequest("UserId cannot be lower than 1.");
-            }
+    [HttpDelete("{userId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteUser(int userId)
+    {
+        if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
 
-            var userExists = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        var userExists = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
 
-            if (userExists == null)
-            {
-                return BadRequest("Such user doesn't exist.");
-            }
+        if (userExists == null) return BadRequest("Such user doesn't exist.");
 
-            context.Users.Remove(userExists);
-            
-            await context.SaveChangesAsync();
-            return Ok();
-        }
+        context.Users.Remove(userExists);
 
-        [HttpPost("{userId}"), Authorize]
-        public async Task<IActionResult> UpdateUser([FromBody] UserDto user, int userId)
-        {
-            if (userId <= 0)
-            {
-                return BadRequest("UserId cannot be lower than 1.");
-            }
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        await context.SaveChangesAsync();
+        return Ok();
+    }
 
-            return Ok();
-        }
+    [HttpPost("{userId}")]
+    [Authorize]
+    public async Task<IActionResult> UpdateUser([FromBody] UserDto user, int userId)
+    {
+        if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
 
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        return Ok();
     }
 }

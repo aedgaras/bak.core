@@ -1,8 +1,7 @@
-﻿namespace bak.api.Models
+﻿namespace bak.api.Models;
+
+public enum Role
 {
-    public enum Role
-    {
-        User = 0,
-        Admin = 1,
-    }
+    User = 0,
+    Admin = 1
 }

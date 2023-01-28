@@ -1,46 +1,42 @@
 ﻿using bak.api.Models;
 
-namespace bak.api.Context
+namespace bak.api.Context;
+
+internal class DatabaseSeeder
 {
-    internal class DatabaseSeeder
+    internal static async void SeedDatabase(ApplicationDbContext applicationDbContext)
     {
-        internal static async void SeedDatabase(ApplicationDbContext applicationDbContext)
+        var users = applicationDbContext.Users.ToList();
+
+        if (users.Any()) return;
+
+        var usersToAdd = new List<User>();
+
+        var admin = new User
         {
-            var users = applicationDbContext.Users.ToList();
+            Username = "admin",
+            Password = "admin",
+            Role = Role.Admin
+        };
 
-            if(users.Any())
-            {
-                return;
-            }
+        var user = new User
+        {
+            Username = "user",
+            Password = "user",
+            Role = Role.User
+        };
 
-            var usersToAdd = new List<User>();
+        var manager = new User
+        {
+            Username = "manager",
+            Password = "manager",
+            Role = Role.User
+        };
 
-            var admin = new User
-            {
-                Username = "admin",
-                Password = "admin",
-                Role = Role.Admin,
-            };
+        usersToAdd.Add(admin);
+        usersToAdd.Add(user);
+        usersToAdd.Add(manager);
 
-            var user = new User
-            {
-                Username = "user",
-                Password = "user",
-                Role = Role.User
-            };
-
-            var manager = new User
-            {
-                Username = "manager",
-                Password = "manager",
-                Role = Role.User
-            };
-
-            usersToAdd.Add(admin);
-            usersToAdd.Add(user);
-            usersToAdd.Add(manager);
-
-            await applicationDbContext.AddRangeAsync(usersToAdd);
-        }
+        await applicationDbContext.AddRangeAsync(usersToAdd);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace bak.api.Models
 {
@@ -6,8 +7,10 @@ namespace bak.api.Models
     {
         [JsonIgnore]
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        [Required,MinLength(4)]
+        public string Username { get; init; }
+        [Required,MinLength(4)]
+        public string Password { get; init; }
         public Role Role { get; set; }
     }
 }

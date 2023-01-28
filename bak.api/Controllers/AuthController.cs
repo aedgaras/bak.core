@@ -7,18 +7,19 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using bak.api.Dtos;
 
 namespace bak.api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController : Controller
     {
-        private readonly ILogger<WeatherForecastController> logger;
+        private readonly ILogger<AuthController> logger;
         private readonly ApplicationDbContext context;
         private readonly IConfiguration configuration;
 
-        public AuthController(ILogger<WeatherForecastController> logger, ApplicationDbContext context, IConfiguration configuration)
+        public AuthController(ILogger<AuthController> logger, ApplicationDbContext context, IConfiguration configuration)
         {
             this.logger = logger;
             this.context = context;
@@ -26,14 +27,14 @@ namespace bak.api.Controllers
         }
 
         [HttpPost("login"), AllowAnonymous]
-        public IActionResult Login([FromBody] UserDto login)
+        public IActionResult Login([FromBody] AuthDto login)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = AuthenticateUser(login);
+            var user = AuthenticateUser(new UserDto{Username = login.Username, Password = login.Password});
 
             if (user == null)
             {
@@ -46,7 +47,7 @@ namespace bak.api.Controllers
         }
 
         [HttpPost("register"), AllowAnonymous]
-        public async Task<IActionResult> RegisterAsync([FromBody] UserDto register) 
+        public async Task<IActionResult> RegisterAsync([FromBody] AuthDto register) 
         {
             if(!ModelState.IsValid)
             {
@@ -63,7 +64,7 @@ namespace bak.api.Controllers
             await context.Users.AddAsync(new User { Username = register.Username, Password = register.Password });
             await context.SaveChangesAsync();
 
-            var tokenString = GenerateJSONWebToken(register);
+            var tokenString = GenerateJSONWebToken(new UserDto { Username = register.Username, Password = register.Password });
 
             return Ok(new { token = tokenString });
         }
@@ -99,12 +100,6 @@ namespace bak.api.Controllers
             }
 
             return new UserDto { Username = user.Username, Password = user.Password };
-        }
-
-        public class UserDto
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
         }
     }
 }

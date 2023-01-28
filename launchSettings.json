@@ -10,7 +10,8 @@
         "bak.api": "StartDebugging",
         "db": "StartWithoutDebugging"
       },
-      "sslPort": 5050
+      "sslPort": 5050,
+      "httpPort": 5000
     }
   }
 }

@@ -10,10 +10,12 @@ namespace bak.api.Controllers
     [Route("[controller]")]
     public class UsersController : Controller
     {
+        private ILogger<UsersController> logger;
         private readonly ApplicationDbContext context;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(ILogger<UsersController> logger,ApplicationDbContext context)
         {
+            this.logger = logger;
             this.context = context;
         }
 

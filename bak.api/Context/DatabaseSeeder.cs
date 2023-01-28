@@ -2,17 +2,11 @@
 
 namespace bak.api.Context
 {
-    public class DatabaseSeeder
+    internal class DatabaseSeeder
     {
-        private readonly ApplicationDbContext context;
-        public DatabaseSeeder(ApplicationDbContext context)
+        internal static async void SeedDatabase(ApplicationDbContext applicationDbContext)
         {
-            this.context = context;
-        }
-
-        public async void SeedDatabase()
-        {
-            var users = context.Users.ToList();
+            var users = applicationDbContext.Users.ToList();
 
             if(users.Any())
             {
@@ -46,9 +40,7 @@ namespace bak.api.Context
             usersToAdd.Add(user);
             usersToAdd.Add(manager);
 
-            await context.AddRangeAsync(usersToAdd);
-            await context.SaveChangesAsync();
-            await context.DisposeAsync();
+            await applicationDbContext.AddRangeAsync(usersToAdd);
         }
     }
 }

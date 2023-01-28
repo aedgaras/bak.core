@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.Swagger;
 using System.Text;
+using bak.api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .LogTo(Console.WriteLine, LogLevel.Information)
     .EnableSensitiveDataLogging()
     .EnableDetailedErrors());
+
+builder.Services.AddScoped<DatabaseSeeder>();
 
 builder.Services.AddAuthentication(
     auth => {auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; })
@@ -70,16 +73,6 @@ builder.Services.AddSwaggerGen(option =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-
-//}
-//else
-//{
-//    app.UseHsts();
-//}
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -90,12 +83,12 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<ApplicationDbContext>();
 
     context.Database.EnsureCreated();
+    app.UseDatabaseSeed();
 }
+
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UsePathBase("/api");
 
 app.MapControllers();
 

@@ -6,13 +6,13 @@
     <projectFile profileName="https">bak.api/bak.api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="857e00f4-6567-4f97-b447-c6d2201f311f" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/bak.api/Extensions/AuthExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bak.api/Extensions/DatabaseConnectionExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bak.api/Extensions/SwaggerDocsExtension.cs" afterDir="false" />
+    <list default="true" id="857e00f4-6567-4f97-b447-c6d2201f311f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.bak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.bak/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Context/DatabaseSeeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Context/DatabaseSeeder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bak.api/Extensions/DatabaseSeederExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Extensions/DatabaseSeederExtension.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bak.api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.dcproj" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.dcproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +21,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Dtos/AuthDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Context/DatabaseSeeder.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -40,6 +40,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -57,7 +59,6 @@
           <option name="envFilePath" value="" />
           <option name="services">
             <list>
-              <option value="db" />
               <option value="bak.api" />
             </list>
           </option>
@@ -66,7 +67,9 @@
         </settings>
       </deployment>
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isPublishEnabled="true" />
-      <method v="2" />
+      <method v="2">
+        <option name="Build" default="false" projectName="bak.api" projectPath="file://$PROJECT_DIR$/bak.api/bak.api.csproj" />
+      </method>
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -78,7 +81,9 @@
       <option name="presentableId" value="Default" />
       <updated>1674917144982</updated>
       <workItem from="1674917146301" duration="3512000" />
-      <workItem from="1674920908191" duration="3284000" />
+      <workItem from="1674920908191" duration="4530000" />
+      <workItem from="1674937128435" duration="1842000" />
+      <workItem from="1675312842325" duration="933000" />
     </task>
     <task id="LOCAL-00001" summary="add dtos, launch docker always">
       <created>1674919613761</created>
@@ -94,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674922705114</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refromat, refactor to extensions">
+      <created>1674933830007</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674933830007</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,9 +115,16 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="add dtos, launch docker always" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="refromat, refactor to extensions" />
+    <option name="LAST_COMMIT_MESSAGE" value="refromat, refactor to extensions" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

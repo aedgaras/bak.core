@@ -26,17 +26,12 @@ internal class DatabaseSeeder
             Role = Role.User
         };
 
-        var manager = new User
-        {
-            Username = "manager",
-            Password = "manager",
-            Role = Role.User
-        };
 
-        usersToAdd.Add(admin);
-        usersToAdd.Add(user);
-        usersToAdd.Add(manager);
+        if (applicationDbContext.Users.FirstOrDefault(x => x.Username == admin.Username) == null) usersToAdd.Add(admin);
+
+        if (applicationDbContext.Users.FirstOrDefault(x => x.Username == user.Username) == null) usersToAdd.Add(user);
 
         await applicationDbContext.AddRangeAsync(usersToAdd);
+        await applicationDbContext.SaveChangesAsync();
     }
 }

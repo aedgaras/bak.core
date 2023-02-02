@@ -1,5 +1,8 @@
+using bak.api.Configurations;
 using bak.api.Context;
 using bak.api.Extensions;
+using bak.api.Interface;
+using bak.api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("MailSettings"));
+
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 builder.Services.AddDatabaseContext(builder.Configuration);
 

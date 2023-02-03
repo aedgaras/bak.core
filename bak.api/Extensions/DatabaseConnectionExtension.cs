@@ -8,14 +8,11 @@ internal static class DatabaseConnectionExtension
     internal static IServiceCollection AddDatabaseContext(this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Server");
-
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging()
-                .EnableDetailedErrors());
-
-        return services;
+        return services.AddDbContext<ApplicationDbContext>(opt =>
+            opt.UseNpgsql($"Server={Environment.GetEnvironmentVariable("DB_HOST")};" +
+                          $"Port={Environment.GetEnvironmentVariable("DB_PORT")};" +
+                          $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
+                          $"User Id={Environment.GetEnvironmentVariable("DB_USER")};" +
+                          $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")};"));
     }
 }

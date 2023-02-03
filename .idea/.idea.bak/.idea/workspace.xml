@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="857e00f4-6567-4f97-b447-c6d2201f311f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bak.api/Configurations/EmailConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bak.api/Interface/IEmailService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bak.api/Models/EmailRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bak.api/Services/EmailService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bak.api/Interface/IGenericRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bak.api/Interface/IUserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.bak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.bak/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bak.api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bak.api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bak.api/bak.api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/bak.api.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +82,8 @@
       <workItem from="1674920908191" duration="4530000" />
       <workItem from="1674937128435" duration="1842000" />
       <workItem from="1675312842325" duration="933000" />
-      <workItem from="1675370184093" duration="1283000" />
+      <workItem from="1675370184093" duration="2249000" />
+      <workItem from="1675401630624" duration="473000" />
     </task>
     <task id="LOCAL-00001" summary="add dtos, launch docker always">
       <created>1674919613761</created>

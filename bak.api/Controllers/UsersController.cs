@@ -54,6 +54,8 @@ public class UsersController : Controller
 
         if (userExists != null) return BadRequest("Such user exists.");
 
+        if (!Enum.TryParse<Role>(user.Role, true, out var role)) return BadRequest("Such role doesnt exist.");
+
         var userToAdd = mapper.Map<User>(user);
 
         await context.Users.AddAsync(userToAdd);
@@ -87,7 +89,7 @@ public class UsersController : Controller
 
         var userToUpdate = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-        if (user.Role != null && Enum.TryParse<Role>(user.Role, true, out var role)) userToUpdate.Role = role;
+        if (user.Role != null && !Enum.TryParse<Role>(user.Role, true, out var role)) userToUpdate.Role = role;
 
         context.Users.Update(userToUpdate);
 

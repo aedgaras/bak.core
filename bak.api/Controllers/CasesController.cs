@@ -38,16 +38,16 @@ public class CasesController : ControllerBase
         return Ok(caseObj);
     }
 
-    // [HttpGet("user/{userId}")]
-    // [Authorize(Roles = "Admin")]
-    // public async Task<IActionResult> GetUserCases(int userId)
-    // {
-    //     if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
-    //     var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
-    //     if (user == null) return BadRequest("Such user doesnt exist.");
-    //
-    //     return Ok(cases);
-    // }
+    [HttpGet("user/{userId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetUserCases(int userId)
+    {
+        if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
+        var user = await context.Users.Include(u => u.Cases).ToListAsync();
+        if (user == null) return BadRequest("Such user doesnt exist.");
+    
+        return Ok(user);
+    }
 
     [HttpPost("{userId}")]
     [Authorize(Roles = "Admin")]

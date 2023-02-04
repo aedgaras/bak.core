@@ -1,8 +1,8 @@
-using bak.api.Models;
+using bak.api.Dtos;
 
 namespace bak.api.Interface;
 
 public interface IEmailService
 {
-    Task SendEmailAsync(MailRequest mailRequest);
+    Task SendEmailAsync(EmailRequestDto mailRequestDto);
 }

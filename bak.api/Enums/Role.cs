@@ -1,4 +1,4 @@
-﻿namespace bak.api.Models;
+﻿namespace bak.api.Enums;
 
 public enum Role
 {

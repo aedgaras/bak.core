@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using bak.api.Models;
+using bak.api.Enums;
 
 namespace bak.api.Dtos;
 

@@ -7,9 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="857e00f4-6567-4f97-b447-c6d2201f311f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bak.api/Interface/IGenericRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bak.api/Interface/IUserService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bak.api/Controllers/CasesController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bak.api/Dtos/CaseDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bak.api/Enums/CaseStatus.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bak.api/Models/Case.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.bak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.bak/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Context/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Context/ApplicationDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Context/DatabaseSeeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Context/DatabaseSeeder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Controllers/EmailController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Controllers/EmailController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Controllers/UsersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Dtos/UserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Dtos/UserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Interface/IEmailService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Interface/IEmailService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Models/EmailRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Dtos/EmailRequestDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Enums/Role.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/Services/EmailService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/Services/EmailService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bak.api/bak.api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/bak.api/bak.api.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +34,11 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4d8b711a34634e9aa8a29cfa1774cb7b11cc00/78/11c6b764/MimeMessage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ff89f92aff70473ea22ebae6a8c9e95f11ec00/86/bf69b310/MailboxAddress.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Context/ApplicationDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Context/DatabaseSeeder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Controllers/UsersController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Controllers/UsersController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/edgaras/source/repos/bak/bak.api/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

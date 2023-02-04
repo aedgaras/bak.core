@@ -1,6 +1,6 @@
-namespace bak.api.Models;
+namespace bak.api.Dtos;
 
-public class MailRequest
+public class EmailRequestDto
 {
     public string ToEmail { get; set; }
     public string Subject { get; set; }

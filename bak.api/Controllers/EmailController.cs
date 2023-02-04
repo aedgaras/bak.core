@@ -1,5 +1,5 @@
+using bak.api.Dtos;
 using bak.api.Interface;
-using bak.api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bak.api.Controllers;
@@ -18,11 +18,11 @@ public class EmailController: ControllerBase
     }
     
     [HttpPost("send")]
-    public async Task<IActionResult> SendMail([FromForm]MailRequest request)
+    public async Task<IActionResult> SendMail([FromForm] EmailRequestDto requestDto)
     {
         try
         {
-            await emailService.SendEmailAsync(request);
+            await emailService.SendEmailAsync(requestDto);
             return Ok();
         }
         catch (Exception ex)

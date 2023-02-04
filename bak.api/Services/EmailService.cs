@@ -1,6 +1,6 @@
 using bak.api.Configurations;
+using bak.api.Dtos;
 using bak.api.Interface;
-using bak.api.Models;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
@@ -16,16 +16,16 @@ public class EmailService: IEmailService
         this.emailConfig = emailConfig;
     }
 
-    public async Task SendEmailAsync(MailRequest mailRequest)
+    public async Task SendEmailAsync(EmailRequestDto mailRequestDto)
     {
         var email = new MimeMessage();
         email.Sender = MailboxAddress.Parse(emailConfig.Mail);
-        email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
-        email.Subject = mailRequest.Subject;
+        email.To.Add(MailboxAddress.Parse(mailRequestDto.ToEmail));
+        email.Subject = mailRequestDto.Subject;
         var builder = new BodyBuilder();
-        if (mailRequest.Attachments != null)
+        if (mailRequestDto.Attachments != null)
         {
-            foreach (var file in mailRequest.Attachments.Where(file => file.Length > 0))
+            foreach (var file in mailRequestDto.Attachments.Where(file => file.Length > 0))
             {
                 byte[] fileBytes;
                 using (var ms = new MemoryStream())
@@ -36,7 +36,8 @@ public class EmailService: IEmailService
                 builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
             }
         }
-        builder.HtmlBody = mailRequest.Body;
+
+        builder.HtmlBody = mailRequestDto.Body;
         email.Body = builder.ToMessageBody();
         using var smtp = new SmtpClient();
         await smtp.ConnectAsync(emailConfig.Host, emailConfig.Port, SecureSocketOptions.StartTls);

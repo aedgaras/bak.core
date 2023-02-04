@@ -1,4 +1,5 @@
-﻿using bak.api.Models;
+﻿using bak.api.Enums;
+using bak.api.Models;
 
 namespace bak.api.Context;
 

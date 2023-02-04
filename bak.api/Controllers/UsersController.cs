@@ -24,7 +24,7 @@ public class UsersController : Controller
     [Authorize]
     public async Task<IActionResult> GetUsers()
     {
-        return Ok(await context.Users.ToListAsync());
+        return Ok(await context.Users.Include(u => u.Cases).ToListAsync());
     }
 
     [HttpGet("{userId}")]
@@ -32,7 +32,7 @@ public class UsersController : Controller
     public async Task<IActionResult> GetUser(int userId)
     {
         if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
-        var user = await context.Users.FirstOrDefaultAsync(user => user.Id == userId);
+        var user = await context.Users.Where(user => user.Id == userId).Include(u => u.Cases).FirstOrDefaultAsync();
         if (user == null) return BadRequest("Such user doesnt exist.");
 
         return Ok(user);
@@ -53,7 +53,7 @@ public class UsersController : Controller
         return Ok();
     }
 
-    [HttpDelete("{userId}")]
+    [HttpDelete("{userId:int}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteUser(int userId)
     {
@@ -69,7 +69,7 @@ public class UsersController : Controller
         return Ok();
     }
 
-    [HttpPost("{userId}")]
+    [HttpPost("{userId:int}")]
     [Authorize]
     public async Task<IActionResult> UpdateUser([FromBody] UserDto user, int userId)
     {

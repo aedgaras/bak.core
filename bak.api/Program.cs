@@ -1,3 +1,4 @@
+using AutoMapper;
 using bak.api.Configurations;
 using bak.api.Context;
 using bak.api.Extensions;
@@ -15,6 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("MailSettings"));
+
+var mapConfig = new MapperConfiguration(opt => { opt.AddProfile(new MappingConfiguration()); });
+
+builder.Services.AddSingleton(mapConfig.CreateMapper());
 
 builder.Services.AddTransient<IEmailService, EmailService>();
 

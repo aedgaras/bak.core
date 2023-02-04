@@ -1,5 +1,7 @@
-﻿using bak.api.Context;
+﻿using AutoMapper;
+using bak.api.Context;
 using bak.api.Dtos;
+using bak.api.Enums;
 using bak.api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +15,22 @@ public class UsersController : Controller
 {
     private readonly ApplicationDbContext context;
     private ILogger<UsersController> logger;
+    private readonly IMapper mapper;
 
-    public UsersController(ILogger<UsersController> logger, ApplicationDbContext context)
+    public UsersController(ILogger<UsersController> logger, ApplicationDbContext context, IMapper mapper)
     {
         this.logger = logger;
         this.context = context;
+        this.mapper = mapper;
     }
 
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> GetUsers()
     {
-        return Ok(await context.Users.ToListAsync());
+        var users = mapper.Map<List<UserDto>>(await context.Users.ToListAsync());
+
+        return Ok(users);
     }
 
     [HttpGet("{userId}")]
@@ -48,7 +54,9 @@ public class UsersController : Controller
 
         if (userExists != null) return BadRequest("Such user exists.");
 
-        await context.Users.AddAsync(new User { Username = user.Username, Password = user.Password, Role = user.Role });
+        var userToAdd = mapper.Map<User>(user);
+
+        await context.Users.AddAsync(userToAdd);
         await context.SaveChangesAsync();
         return Ok();
     }
@@ -76,6 +84,12 @@ public class UsersController : Controller
         if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
 
         if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var userToUpdate = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user.Role != null && Enum.TryParse<Role>(user.Role, true, out var role)) userToUpdate.Role = role;
+
+        context.Users.Update(userToUpdate);
 
         return Ok();
     }

@@ -31,7 +31,7 @@ public class AuthController : Controller
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        var user = AuthenticateUser(new UserDto { Username = login.Username, Password = login.Password });
+        var user = AuthenticateUser(login);
 
         if (user == null) return Unauthorized("Such user doesn't exist.");
 
@@ -53,13 +53,12 @@ public class AuthController : Controller
         await context.Users.AddAsync(new User { Username = register.Username, Password = register.Password });
         await context.SaveChangesAsync();
 
-        var tokenString = GenerateJSONWebToken(new UserDto
-            { Username = register.Username, Password = register.Password });
+        var tokenString = GenerateJSONWebToken(register);
 
         return Ok(new { token = tokenString });
     }
 
-    private string GenerateJSONWebToken(UserDto userInfo)
+    private string GenerateJSONWebToken(AuthDto userInfo)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -81,12 +80,12 @@ public class AuthController : Controller
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private UserDto AuthenticateUser(UserDto login)
+    private AuthDto AuthenticateUser(AuthDto login)
     {
         var user = context.Users.FirstOrDefault(x => x.Username == login.Username);
 
         if (user == null) return null;
 
-        return new UserDto { Username = user.Username, Password = user.Password };
+        return new AuthDto { Username = user.Username, Password = user.Password };
     }
 }

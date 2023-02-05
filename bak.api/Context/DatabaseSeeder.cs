@@ -17,14 +17,16 @@ internal class DatabaseSeeder
         {
             Username = "admin",
             Password = "admin",
-            Role = Role.Admin
+            Role = Role.Admin,
+            Classification = Classification.Veterinarian
         };
 
         var user = new User
         {
             Username = "user",
             Password = "user",
-            Role = Role.User
+            Role = Role.User,
+            Classification = Classification.Customer
         };
 
 

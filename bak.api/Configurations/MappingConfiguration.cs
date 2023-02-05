@@ -12,10 +12,16 @@ public class MappingConfiguration : Profile
     {
         CreateMap<User, UserDto>()
             .ForMember(dto => dto.Role,
-                opt => opt.MapFrom(model => model.Role.GetDescription()));
+                opt => opt.MapFrom(model => model.Role.GetDescription()))
+            .ForMember(dto => dto.Classification,
+                opt => opt.MapFrom(model => model.Classification.GetDescription()));
         CreateMap<UserDto, User>()
             .ForMember(model => model.Role,
-                opt => opt.MapFrom(dto => (Role)Enum.Parse(typeof(Role), dto.Role, true)));
+                opt => opt.MapFrom(dto => (Role)Enum.Parse(typeof(Role), dto.Role, true)))
+            .ForMember(model => model.Classification,
+                opt => opt.MapFrom(dto =>
+                    (Classification)Enum.Parse(typeof(Classification), dto.Classification, true)));
+        
         CreateMap<Case, CaseDto>()
             .ForMember(dto => dto.Status,
                 opt => opt.MapFrom(c => c.Status.GetDescription()));

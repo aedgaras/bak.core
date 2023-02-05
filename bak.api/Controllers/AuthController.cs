@@ -68,7 +68,8 @@ public class AuthController : Controller
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
-            new Claim("role", user.Role.ToString())
+            new Claim("role", user.Role.ToString()),
+            new Claim("classification", user.Classification.ToString())
         };
 
         var token = new JwtSecurityToken(configuration["Jwt:Issuer"],

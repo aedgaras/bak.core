@@ -11,4 +11,6 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Case> Cases { get; set; }
+    public DbSet<Animal> Animals { get; set; }
+    public DbSet<HealthRecord> HealthRecords { get; set; }
 }

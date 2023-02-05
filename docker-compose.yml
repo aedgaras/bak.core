@@ -17,6 +17,8 @@ services:
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_NAME: postgres
+      JWT_ISSUER: vetsys
+      JWT_KEY: K_S_7ZlkWpc_w_JkihksIQ
 volumes:
   apidata:
     driver: local

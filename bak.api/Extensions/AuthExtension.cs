@@ -6,7 +6,7 @@ namespace bak.api.Extensions;
 
 internal static class AuthExtension
 {
-    internal static IServiceCollection AddJwtAuth(this IServiceCollection services, IConfiguration configuration)
+    internal static IServiceCollection AddJwtAuth(this IServiceCollection services)
     {
         services.AddAuthentication(
                 auth =>
@@ -23,9 +23,10 @@ internal static class AuthExtension
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["Jwt:Issuer"],
-                    ValidAudience = configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                    ValidAudience = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
                 };
             });
 

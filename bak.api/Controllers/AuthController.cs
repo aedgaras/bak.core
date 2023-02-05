@@ -60,7 +60,9 @@ public class AuthController : Controller
 
     private string GenerateJSONWebToken(AuthDto userInfo)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+        ;
+        var securityKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var user = context.Users.FirstOrDefault(x => x.Username == userInfo.Username);
@@ -72,8 +74,8 @@ public class AuthController : Controller
             new Claim("classification", user.Classification.ToString())
         };
 
-        var token = new JwtSecurityToken(configuration["Jwt:Issuer"],
-            configuration["Jwt:Issuer"],
+        var token = new JwtSecurityToken(Environment.GetEnvironmentVariable("JWT_ISSUER"),
+            Environment.GetEnvironmentVariable("JWT_ISSUER"),
             claims,
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials);

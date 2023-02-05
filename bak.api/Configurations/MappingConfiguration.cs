@@ -28,5 +28,15 @@ public class MappingConfiguration : Profile
         CreateMap<CaseDto, Case>()
             .ForMember(model => model.Status,
                 opt => opt.MapFrom(dto => (CaseStatus)Enum.Parse(typeof(CaseStatus), dto.Status, true)));
+
+        CreateMap<Animal, AnimalDto>()
+            .ForMember(dto => dto.AnimalType,
+                opt => opt.MapFrom(model => model.Type.GetDescription()));
+        CreateMap<AnimalDto, Animal>()
+            .ForMember(model => model.Type,
+                opt => opt.MapFrom(dto => (AnimalType)Enum.Parse(typeof(AnimalType), dto.AnimalType, true)));
+
+        CreateMap<HealthRecord, HealthRecordDto>();
+        CreateMap<HealthRecordDto, HealthRecord>();
     }
 }

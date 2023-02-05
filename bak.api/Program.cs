@@ -27,7 +27,7 @@ builder.Services.AddDatabaseContext(builder.Configuration);
 
 builder.Services.AddScoped<DatabaseSeeder>();
 
-builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddJwtAuth();
 
 builder.Services.AddSwaggerBearerAuth();
 

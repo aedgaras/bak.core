@@ -1,5 +1,3 @@
-using AutoMapper;
-using bak.api.Configurations;
 using bak.api.Context;
 using bak.api.Extensions;
 using bak.api.Interface;
@@ -7,19 +5,14 @@ using bak.api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services
-    .AddControllers(); //.AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerBearerAuth();
 
-builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("MailSettings"));
 
-var mapConfig = new MapperConfiguration(opt => { opt.AddProfile(new MappingConfiguration()); });
-
-builder.Services.AddSingleton(mapConfig.CreateMapper());
+builder.Services.AddMapping(builder.Configuration);
 
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
@@ -29,8 +22,6 @@ builder.Services.AddDatabaseContext(builder.Configuration);
 builder.Services.AddScoped<DatabaseSeeder>();
 
 builder.Services.AddJwtAuth();
-
-builder.Services.AddSwaggerBearerAuth();
 
 var app = builder.Build();
 

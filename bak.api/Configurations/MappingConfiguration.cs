@@ -21,7 +21,7 @@ public class MappingConfiguration : Profile
             .ForMember(model => model.Classification,
                 opt => opt.MapFrom(dto =>
                     (Classification)Enum.Parse(typeof(Classification), dto.Classification, true)));
-        
+
         CreateMap<Case, CaseDto>()
             .ForMember(dto => dto.Status,
                 opt => opt.MapFrom(c => c.Status.GetDescription()));

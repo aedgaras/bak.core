@@ -1,12 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using bak.api.Context;
 using bak.api.Dtos;
+using bak.api.Interface;
 using bak.api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace bak.api.Controllers;
 
@@ -16,28 +15,44 @@ public class AuthController : Controller
 {
     private readonly IConfiguration configuration;
     private readonly ApplicationDbContext context;
-    private readonly ILogger<AuthController> logger;
+    private readonly ITokenService tokenService;
 
-    public AuthController(ILogger<AuthController> logger, ApplicationDbContext context, IConfiguration configuration)
+    public AuthController(ApplicationDbContext context, IConfiguration configuration,
+        ITokenService tokenService)
     {
-        this.logger = logger;
-        this.context = context;
-        this.configuration = configuration;
+        this.context = context ?? throw new ArgumentNullException(nameof(context));
+        this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        this.tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
     }
 
     [HttpPost("login")]
     [AllowAnonymous]
-    public IActionResult Login([FromBody] AuthDto login)
+    public async Task<IActionResult> Login([FromBody] AuthDto login)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        var user = AuthenticateUser(login);
+        var user = tokenService.AuthenticateUser(login);
 
         if (user == null) return Unauthorized("Such user doesn't exist.");
 
-        var tokenString = GenerateJSONWebToken(user);
+        var userModel = context.Users.FirstOrDefault(x => x.Username == login.Username);
 
-        return Ok(new { token = tokenString });
+        var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+            new Claim("role", userModel.Role.ToString()),
+            new Claim("classification", userModel.Classification.ToString())
+        };
+
+        var accessToken = tokenService.GenerateAccessToken(claims);
+        var refreshToken = tokenService.GenerateRefreshToken();
+
+        context.Users.Update(userModel).Entity.RefreshToken = refreshToken;
+        context.Users.Update(userModel).Entity.RefreshTokenExpiryTime = DateTime.Now.AddDays(14);
+
+        await context.SaveChangesAsync();
+
+        return Ok(new AuthTokenDto { AccessToken = accessToken, RefreshToken = refreshToken });
     }
 
     [HttpPost("register")]
@@ -53,42 +68,23 @@ public class AuthController : Controller
         await context.Users.AddAsync(new User { Username = register.Username, Password = register.Password });
         await context.SaveChangesAsync();
 
-        var tokenString = GenerateJSONWebToken(register);
-
-        return Ok(new { token = tokenString });
-    }
-
-    private string GenerateJSONWebToken(AuthDto userInfo)
-    {
-        ;
-        var securityKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var user = context.Users.FirstOrDefault(x => x.Username == userInfo.Username);
+        var userModel = context.Users.FirstOrDefault(x => x.Username == register.Username);
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
-            new Claim("role", user.Role.ToString()),
-            new Claim("classification", user.Classification.ToString())
+            new Claim(JwtRegisteredClaimNames.Sub, userModel.Username),
+            new Claim("role", userModel.Role.ToString()),
+            new Claim("classification", userModel.Classification.ToString())
         };
 
-        var token = new JwtSecurityToken(Environment.GetEnvironmentVariable("JWT_ISSUER"),
-            Environment.GetEnvironmentVariable("JWT_ISSUER"),
-            claims,
-            expires: DateTime.Now.AddMinutes(120),
-            signingCredentials: credentials);
+        var accessToken = tokenService.GenerateAccessToken(claims);
+        var refreshToken = tokenService.GenerateRefreshToken();
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+        context.Users.Update(userModel).Entity.RefreshToken = refreshToken;
+        context.Users.Update(userModel).Entity.RefreshTokenExpiryTime = DateTime.Now.AddDays(14);
 
-    private AuthDto AuthenticateUser(AuthDto login)
-    {
-        var user = context.Users.FirstOrDefault(x => x.Username == login.Username);
+        await context.SaveChangesAsync();
 
-        if (user == null) return null;
-
-        return new AuthDto { Username = user.Username, Password = user.Password };
+        return Ok(new AuthTokenDto { AccessToken = accessToken, RefreshToken = refreshToken });
     }
 }

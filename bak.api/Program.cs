@@ -22,6 +22,7 @@ var mapConfig = new MapperConfiguration(opt => { opt.AddProfile(new MappingConfi
 builder.Services.AddSingleton(mapConfig.CreateMapper());
 
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<ITokenService, TokenService>();
 
 builder.Services.AddDatabaseContext(builder.Configuration);
 
@@ -49,6 +50,8 @@ app.UseSwaggerUI();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.MapControllers();
 

@@ -14,8 +14,8 @@ namespace bak.api.Controllers;
 public class UsersController : Controller
 {
     private readonly ApplicationDbContext context;
-    private ILogger<UsersController> logger;
     private readonly IMapper mapper;
+    private ILogger<UsersController> logger;
 
     public UsersController(ILogger<UsersController> logger, ApplicationDbContext context, IMapper mapper)
     {

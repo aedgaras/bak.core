@@ -13,4 +13,6 @@ public class User : Entity
     public Classification Classification { get; set; }
     public List<Case> Cases { get; set; }
     public List<Animal> Animals { get; set; }
+    public string? RefreshToken { get; set; }
+    public DateTime RefreshTokenExpiryTime { get; set; }
 }

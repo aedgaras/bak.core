@@ -4,7 +4,6 @@ namespace bak.api.Extensions;
 
 internal static class DatabaseSeederExtension
 {
-
     internal static void UseEnsureAndSeedDb(this WebApplication app)
     {
         using (var scope = app.Services.CreateScope())
@@ -18,7 +17,7 @@ internal static class DatabaseSeederExtension
 
         DatabaseSeeder.SeedDatabase(app.Services.GetService<ApplicationDbContext>());
     }
-    
+
     internal static IApplicationBuilder UseDatabaseSeed(this IApplicationBuilder app)
     {
         ArgumentNullException.ThrowIfNull(app, nameof(app));

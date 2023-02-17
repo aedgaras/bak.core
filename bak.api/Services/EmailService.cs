@@ -7,10 +7,10 @@ using MimeKit;
 
 namespace bak.api.Services;
 
-public class EmailService: IEmailService
+public class EmailService : IEmailService
 {
     private readonly EmailConfiguration emailConfig;
-    
+
     public EmailService(EmailConfiguration emailConfig)
     {
         this.emailConfig = emailConfig;
@@ -24,7 +24,6 @@ public class EmailService: IEmailService
         email.Subject = mailRequestDto.Subject;
         var builder = new BodyBuilder();
         if (mailRequestDto.Attachments != null)
-        {
             foreach (var file in mailRequestDto.Attachments.Where(file => file.Length > 0))
             {
                 byte[] fileBytes;
@@ -33,9 +32,9 @@ public class EmailService: IEmailService
                     await file.CopyToAsync(ms);
                     fileBytes = ms.ToArray();
                 }
+
                 builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
             }
-        }
 
         builder.HtmlBody = mailRequestDto.Body;
         email.Body = builder.ToMessageBody();

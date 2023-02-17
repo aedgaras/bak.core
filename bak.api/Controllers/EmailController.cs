@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace bak.api.Controllers;
 
-[Route(("[controller]"))]
+[Route("[controller]")]
 [ApiController]
-public class EmailController: ControllerBase
+public class EmailController : ControllerBase
 {
     private readonly IEmailService emailService;
     private readonly ILogger<EmailController> logger;
@@ -16,18 +16,11 @@ public class EmailController: ControllerBase
         this.logger = logger;
         this.emailService = emailService;
     }
-    
+
     [HttpPost("send")]
     public async Task<IActionResult> SendMail([FromForm] EmailRequestDto requestDto)
     {
-        try
-        {
-            await emailService.SendEmailAsync(requestDto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }
+        await emailService.SendEmailAsync(requestDto);
+        return Ok();
     }
 }

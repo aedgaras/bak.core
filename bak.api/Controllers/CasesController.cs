@@ -14,8 +14,8 @@ namespace bak.api.Controllers;
 public class CasesController : ControllerBase
 {
     private readonly ApplicationDbContext context;
-    private ILogger<CasesController> logger;
     private readonly IMapper mapper;
+    private ILogger<CasesController> logger;
 
     public CasesController(ILogger<CasesController> logger, ApplicationDbContext context, IMapper mapper)
     {

@@ -1,7 +1,7 @@
-﻿using bak.api.Models;
+﻿using bak.models.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace bak.api.Context;
+namespace bak.context;
 
 public class ApplicationDbContext : DbContext
 {

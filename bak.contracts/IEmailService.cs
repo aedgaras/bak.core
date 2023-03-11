@@ -1,6 +1,7 @@
-using bak.api.Dtos;
 
-namespace bak.api.Interfaces;
+using bak.models.Dtos;
+
+namespace bak.contracts;
 
 public interface IEmailService
 {

@@ -10,7 +10,7 @@ services:
     volumes:
       - apidata:/tmp/
     ports:
-      - "5001:80"
+      - "5002:80"
     environment:
       DB_HOST: db
       DB_PORT: 5432

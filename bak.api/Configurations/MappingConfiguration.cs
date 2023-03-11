@@ -1,8 +1,8 @@
 using AutoMapper;
-using bak.api.Dtos;
-using bak.api.Enums;
 using bak.api.Extensions;
-using bak.api.Models;
+using bak.models.Dtos;
+using bak.models.Enums;
+using bak.models.Models;
 
 namespace bak.api.Configurations;
 

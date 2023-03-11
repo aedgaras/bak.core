@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace bak.api.Models;
+namespace bak.models.Models;
 
 public class HealthRecord : Entity
 {

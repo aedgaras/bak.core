@@ -1,9 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using bak.api.Context;
-using bak.api.Dtos;
-using bak.api.Interface;
-using bak.api.Models;
+using bak.context;
+using bak.contracts;
+using bak.models.Dtos;
+using bak.models.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

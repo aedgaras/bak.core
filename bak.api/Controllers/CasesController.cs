@@ -1,8 +1,8 @@
 using AutoMapper;
-using bak.api.Context;
-using bak.api.Dtos;
-using bak.api.Enums;
-using bak.api.Models;
+using bak.context;
+using bak.models.Dtos;
+using bak.models.Enums;
+using bak.models.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

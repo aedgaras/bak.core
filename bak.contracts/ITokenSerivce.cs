@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using bak.api.Dtos;
+using bak.models.Dtos;
 
-namespace bak.api.Interface;
+namespace bak.contracts;
 
 public interface ITokenService
 {

@@ -1,11 +1,11 @@
-﻿using bak.api.Enums;
-using bak.api.Models;
+﻿using bak.models.Enums;
+using bak.models.Models;
 
-namespace bak.api.Context;
+namespace bak.context;
 
-internal class DatabaseSeeder
+public class DatabaseSeeder
 {
-    internal static async void SeedDatabase(ApplicationDbContext applicationDbContext)
+    public static async void SeedDatabase(ApplicationDbContext applicationDbContext)
     {
         var users = applicationDbContext.Users.ToList();
 

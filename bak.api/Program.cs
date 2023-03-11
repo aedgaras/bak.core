@@ -1,8 +1,7 @@
-using bak.api.Context;
 using bak.api.Extensions;
-using bak.api.Interface;
-using bak.api.Interfaces;
 using bak.api.Services;
+using bak.context;
+using bak.contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,8 +35,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseEnsureAndSeedDb();
-
-app.UseExceptionHandler();
 
 app.UseSwagger();
 app.UseSwaggerUI();

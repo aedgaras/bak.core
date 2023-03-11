@@ -1,4 +1,4 @@
-namespace bak.api.Dtos;
+namespace bak.models.Dtos;
 
 public class AnimalDto
 {

@@ -1,6 +1,6 @@
 using AutoMapper;
-using bak.api.Context;
-using bak.api.Dtos;
+using bak.context;
+using bak.models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

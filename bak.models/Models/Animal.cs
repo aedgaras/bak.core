@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using bak.api.Enums;
+using bak.models.Enums;
 
-namespace bak.api.Models;
+namespace bak.models.Models;
 
 public class Animal : Entity
 {

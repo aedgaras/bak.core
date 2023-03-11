@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace bak.api.Dtos;
+namespace bak.models.Dtos;
 
 public class ErrorDetailsDto
 {

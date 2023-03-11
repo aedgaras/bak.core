@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using bak.api.Enums;
+using bak.models.Enums;
 
-namespace bak.api.Models;
+namespace bak.models.Models;
 
 public class User : Entity
 {

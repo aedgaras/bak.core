@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace bak.api.Enums;
+namespace bak.models.Enums;
 
 public enum Role
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace bak.api.Dtos;
+namespace bak.models.Dtos;
 
 public class HealthRecordDto
 {

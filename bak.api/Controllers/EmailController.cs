@@ -1,5 +1,5 @@
-using bak.api.Dtos;
-using bak.api.Interfaces;
+using bak.contracts;
+using bak.models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bak.api.Controllers;

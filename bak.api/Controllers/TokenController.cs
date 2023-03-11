@@ -1,6 +1,6 @@
-using bak.api.Context;
-using bak.api.Dtos;
-using bak.api.Interface;
+using bak.context;
+using bak.contracts;
+using bak.models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

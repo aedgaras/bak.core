@@ -1,9 +1,6 @@
 using bak.api.Configurations;
 using bak.contracts;
 using bak.models.Dtos;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
 
 namespace bak.api.Services;
 

@@ -7,6 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\bak.models\bak.models.csproj" />
+        <ProjectReference Include="..\bak.models\bak.models.csproj"/>
     </ItemGroup>
 </Project>

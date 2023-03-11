@@ -1,6 +1,6 @@
 using bak.api.Dtos;
 
-namespace bak.api.Interface;
+namespace bak.api.Interfaces;
 
 public interface IEmailService
 {

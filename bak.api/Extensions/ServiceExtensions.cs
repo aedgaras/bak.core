@@ -1,8 +1,12 @@
+using System.Net;
 using System.Text;
 using AutoMapper;
 using bak.api.Configurations;
 using bak.api.Context;
+using bak.api.Dtos;
+using bak.api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -19,7 +23,7 @@ public static class ServiceExtensions
 
         serviceCollection.AddSingleton(mapConfig.CreateMapper());
     }
-    
+
     public static void AddSwaggerBearerAuth(this IServiceCollection services)
     {
         services.AddSwaggerGen(option =>
@@ -50,7 +54,7 @@ public static class ServiceExtensions
             });
         });
     }
-    
+
     internal static void AddJwtAuth(this IServiceCollection services)
     {
         services.AddAuthentication(
@@ -75,7 +79,7 @@ public static class ServiceExtensions
                 };
             });
     }
-    
+
     internal static void UseEnsureAndSeedDb(this WebApplication app)
     {
         using (var scope = app.Services.CreateScope())
@@ -89,6 +93,7 @@ public static class ServiceExtensions
 
         DatabaseSeeder.SeedDatabase(app.Services.GetService<ApplicationDbContext>());
     }
+
     internal static void AddDatabaseContext(this IServiceCollection services,
         IConfiguration configuration)
     {
@@ -98,5 +103,32 @@ public static class ServiceExtensions
                           $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
                           $"User Id={Environment.GetEnvironmentVariable("DB_USER")};" +
                           $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")};"));
+    }
+
+    public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILogger logger)
+    {
+        app.UseExceptionHandler(appError =>
+        {
+            appError.Run(async context =>
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = "application/json";
+                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                if (contextFeature != null)
+                {
+                    logger.LogError($"Something went wrong: {contextFeature.Error}");
+                    await context.Response.WriteAsync(new ErrorDetailsDto
+                    {
+                        StatusCode = context.Response.StatusCode,
+                        Message = "Internal Server Error."
+                    }.ToString());
+                }
+            });
+        });
+    }
+
+    public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<ExceptionService>();
     }
 }

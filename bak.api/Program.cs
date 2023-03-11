@@ -1,11 +1,12 @@
 using bak.api.Context;
 using bak.api.Extensions;
 using bak.api.Interface;
+using bak.api.Interfaces;
 using bak.api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(); 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
@@ -35,6 +36,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseEnsureAndSeedDb();
+
+app.UseExceptionHandler();
 
 app.UseSwagger();
 app.UseSwaggerUI();

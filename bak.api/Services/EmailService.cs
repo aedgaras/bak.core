@@ -1,6 +1,6 @@
 using bak.api.Configurations;
 using bak.api.Dtos;
-using bak.api.Interface;
+using bak.api.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;

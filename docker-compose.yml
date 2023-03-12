@@ -6,7 +6,7 @@ services:
     image: bakapi
     build:
       context: .
-      dockerfile: bak.api/Dockerfile
+      dockerfile: vetsys.api/Dockerfile
     volumes:
       - apidata:/tmp/
     ports:

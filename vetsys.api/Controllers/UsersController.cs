@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vetsys.context;
-using vetsys.models.Dtos;
-using vetsys.models.Enums;
-using vetsys.models.Models;
+using vetsys.entities.Dtos;
+using vetsys.entities.Enums;
+using vetsys.entities.Models;
 
 namespace vetsys.api.Controllers;
 

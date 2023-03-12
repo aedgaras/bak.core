@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using vetsys.models.Enums;
+using vetsys.entities.Enums;
 
-namespace vetsys.models.Models;
+namespace vetsys.entities.Models;
 
 public class Animal : Entity
 {
@@ -11,4 +11,5 @@ public class Animal : Entity
     public int UserId { get; set; }
     [JsonIgnore] public User User { get; set; }
     public List<HealthRecord> HealthRecords { get; set; }
+    public List<Case> Cases { get; set; }
 }

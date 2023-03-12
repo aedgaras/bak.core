@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using vetsys.context;
 using vetsys.contracts;
-using vetsys.models.Dtos;
+using vetsys.entities.Dtos;
 
 namespace vetsys.api.Services;
 

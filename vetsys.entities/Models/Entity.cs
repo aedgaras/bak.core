@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace vetsys.models.Models;
+namespace vetsys.entities.Models;
 
 public abstract class Entity
 {

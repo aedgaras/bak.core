@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace vetsys.models.Enums;
+namespace vetsys.entities.Enums;
 
 public enum Role
 {

@@ -1,5 +1,5 @@
 using System.Net;
-using vetsys.models.Dtos;
+using vetsys.entities.Dtos;
 
 namespace vetsys.api.Services;
 

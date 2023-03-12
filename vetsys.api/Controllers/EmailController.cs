@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using vetsys.contracts;
-using vetsys.models.Dtos;
+using vetsys.entities.Dtos;
 
 namespace vetsys.api.Controllers;
 

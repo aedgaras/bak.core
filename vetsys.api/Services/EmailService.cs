@@ -1,6 +1,6 @@
 using vetsys.api.Configurations;
 using vetsys.contracts;
-using vetsys.models.Dtos;
+using vetsys.entities.Dtos;
 
 namespace vetsys.api.Services;
 

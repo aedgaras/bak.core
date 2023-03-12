@@ -1,4 +1,4 @@
-using vetsys.models.Dtos;
+using vetsys.entities.Dtos;
 
 namespace vetsys.contracts;
 

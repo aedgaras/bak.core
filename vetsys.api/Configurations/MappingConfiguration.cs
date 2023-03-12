@@ -1,8 +1,8 @@
 using AutoMapper;
 using vetsys.api.Extensions;
-using vetsys.models.Dtos;
-using vetsys.models.Enums;
-using vetsys.models.Models;
+using vetsys.entities.Dtos;
+using vetsys.entities.Enums;
+using vetsys.entities.Models;
 
 namespace vetsys.api.Configurations;
 

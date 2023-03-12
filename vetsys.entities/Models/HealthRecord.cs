@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace vetsys.models.Models;
+namespace vetsys.entities.Models;
 
 public class HealthRecord : Entity
 {

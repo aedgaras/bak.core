@@ -7,6 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\vetsys.models\vetsys.models.csproj"/>
+        <ProjectReference Include="..\vetsys.entities\vetsys.entities.csproj" />
     </ItemGroup>
 </Project>

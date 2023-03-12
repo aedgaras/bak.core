@@ -9,7 +9,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vetsys.context", "vetsys.context\vetsys.context.csproj", "{CAFD866E-5290-4396-9BCC-063D5ACA6385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vetsys.models", "vetsys.models\vetsys.models.csproj", "{C647ABB2-DC40-4E37-96F2-2B59939CCC90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vetsys.entities", "vetsys.entities\vetsys.entities.csproj", "{C647ABB2-DC40-4E37-96F2-2B59939CCC90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vetsys.contracts", "vetsys.contracts\vetsys.contracts.csproj", "{09348369-5F23-4297-8E1C-C6562F5E38F4}"
 EndProject

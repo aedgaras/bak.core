@@ -1,4 +1,4 @@
-namespace vetsys.models.Dtos;
+namespace vetsys.entities.Dtos;
 
 public class CaseDto
 {

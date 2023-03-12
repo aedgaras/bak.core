@@ -1,5 +1,5 @@
-﻿using vetsys.models.Enums;
-using vetsys.models.Models;
+﻿using vetsys.entities.Enums;
+using vetsys.entities.Models;
 
 namespace vetsys.context;
 

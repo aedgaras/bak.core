@@ -9,7 +9,7 @@ using Microsoft.OpenApi.Models;
 using vetsys.api.Configurations;
 using vetsys.api.Services;
 using vetsys.context;
-using vetsys.models.Dtos;
+using vetsys.entities.Dtos;
 
 namespace vetsys.api.Extensions;
 

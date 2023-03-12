@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vetsys.context;
-using vetsys.models.Dtos;
-using vetsys.models.Enums;
-using vetsys.models.Models;
+using vetsys.entities.Dtos;
+using vetsys.entities.Enums;
+using vetsys.entities.Models;
 
 namespace vetsys.api.Controllers;
 
@@ -52,7 +52,11 @@ public class CasesController : ControllerBase
     public async Task<IActionResult> GetUserCases(int userId)
     {
         if (userId <= 0) return BadRequest("UserId cannot be lower than 1.");
-        var userCases = await context.Cases.Where(c => c.UserId == userId).ToListAsync();
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+        var animal = user.Animals.FirstOrDefault();
+        
+        var userCases = await context.Cases.Where(c => c.AnimalId == animal.Id).ToListAsync();
 
         var casesDto = mapper.Map<List<CaseDto>>(userCases);
 
@@ -83,8 +87,11 @@ public class CasesController : ControllerBase
         if (userId <= 0 || caseId <= 0) return BadRequest("Id cannot be lower than 1.");
         var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
         if (user == null) return BadRequest("Such user doesnt exist.");
+        
+        
+        var animal = user.Animals.FirstOrDefault();
 
-        var caseToUpdate = await context.Cases.Where(c => c.UserId == userId).FirstOrDefaultAsync(x => x.Id == caseId);
+        var caseToUpdate = await context.Cases.Where(c => c.AnimalId == animal.Id).FirstOrDefaultAsync(x => x.Id == caseId);
 
         if (caseToUpdate == null || !Enum.TryParse<CaseStatus>(caseDto.Status, true, out var status))
             return BadRequest("Such case doesnt exist.");

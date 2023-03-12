@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace vetsys.models.Dtos;
+namespace vetsys.entities.Dtos;
 
 public class AuthDto
 {

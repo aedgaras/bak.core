@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using vetsys.models.Enums;
+using vetsys.entities.Enums;
 
-namespace vetsys.models.Models;
+namespace vetsys.entities.Models;
 
 public class User : Entity
 {
